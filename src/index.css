@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 터미널 기본 폰트 */
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap");
+
+/*
+ * Terminal Portfolio — Global Styles
+ * 터미널 테마 CSS 변수는 Step 8에서 추가 예정
+ */
+
+:root {
+  --terminal-bg: #1a1b26;
+  --terminal-fg: #a9b1d6;
+  --terminal-green: #9ece6a;
+  --terminal-blue: #7aa2f7;
+  --terminal-purple: #bb9af7;
+  --terminal-red: #f7768e;
+  --terminal-yellow: #e0af68;
+  --terminal-cyan: #7dcfff;
+  --terminal-comment: #565f89;
+  --terminal-prompt: #9ece6a;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Fira Code", monospace;
+  background-color: var(--terminal-bg);
+  color: var(--terminal-fg);
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* 스크롤바 커스텀 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--terminal-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--terminal-comment);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--terminal-fg);
+}
+
+/* 선택 영역 색상 */
+::selection {
+  background: var(--terminal-blue);
+  color: var(--terminal-bg);
+}
