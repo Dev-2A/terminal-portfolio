@@ -60,3 +60,22 @@ body {
   background: var(--terminal-blue);
   color: var(--terminal-bg);
 }
+
+/* 커서 깜빡임 */
+input {
+  caret-color: var(--terminal-green);
+}
+
+input:focus {
+  outline: none;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
