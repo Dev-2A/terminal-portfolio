@@ -1,44 +1,25 @@
 import { registerCommand } from "../registry";
 import { out, divider } from "../output";
 import { getProjectById, searchProjects } from "../../data/projects";
+import fs from "../../data/filesystem";
 
-// cat으로 열 수 있는 가상 파일들
-const files = {
-  "about.md": () => {
-    // aboout 명령어와 동일한 출력을 재사용
-    // loader.js에서 about이 먼저 로드되므로 직접 import하지 않고 간단히 구현
-    return [
-      out.blank(),
-      out.accent("📄 about.md"),
-      divider(),
-      out.blank(),
-      out.success("# Dev-2A — 전직 사서, 현직 AI/ML 엔지니어"),
-      out.blank(),
-      out.info(
-        "도서관에서 장서를 분류하고, 이용자에게 정보를 연결하던 사서였습니다.",
-      ),
-      out.info(
-        "지금은 AI와 임베딩 모델로 '정보와 사람을 연결하는 일'을 계속하고 있습니다.",
-      ),
-      out.blank(),
-      out.comment("  전체 내용은 'about' 명령어로 확인하세요."),
-      out.blank(),
-    ];
-  },
-  "contact.md": () => {
-    return [
-      out.blank(),
-      out.accent("📄 contact.md"),
-      divider(),
-      out.blank(),
-      out.success("# Contact"),
-      out.blank(),
-      out.info("  📧 GitHub:     https://github.com/Dev-2A"),
-      out.info("  🌐 Portfolio:  https://dev-2a.github.io/dev-2a-portfolio/"),
-      out.info("  📊 Solved.ac:  https://solved.ac/profile/tangi826"),
-      out.blank(),
-    ];
-  },
+// 가상 파일 콘텐츠 렌더러
+const contentRenderers = {
+  about: renderAbout,
+  contact: renderContact,
+  "skills:languages": () =>
+    renderSkillFile("Languages", "Python · JavaScript · TypeScript · Java"),
+  "skills:backend": () =>
+    renderSkillFile("Backend", "FastAPI · Spring Boot · Node.js"),
+  "skills:frontend": () =>
+    renderSkillFile("Frontend", "React · Next.js · Tailwind CSS · D3.js"),
+  "skills:ai-ml": () =>
+    renderSkillFile("AI / ML", "BGE-M3 · FAISS · ONNX · VLM/OCR · RAG"),
+  "skills:infra": () =>
+    renderSkillFile(
+      "Infra / Tools",
+      "Docker · Git · Linux · Elasticsearch · SQLite",
+    ),
 };
 
 registerCommand("cat", {
@@ -50,15 +31,28 @@ registerCommand("cat", {
       return [out.error("cat: 파일명을 입력하세요. 예: cat about.md")];
     }
 
-    const target = args[0].toLowerCase();
+    const target = args[0];
 
-    // 1. 가상 파일 확인
-    if (files[target]) {
-      return files[target]();
+    // 1. 파일시스템에서 찾기
+    const fsResult = fs.cat(target);
+    if (fsResult.success) {
+      const content = fsResult.content;
+
+      // project: 접두어 처리
+      if (content.startsWith("project:")) {
+        const projectId = content.replace("project:", "");
+        const project = getProjectById(projectId);
+        if (project) return renderProject(project);
+      }
+
+      // 일반 콘텐츠 렌더러
+      if (contentRenderers[content]) {
+        return contentRenderers[content]();
+      }
     }
 
-    // 2. 프로젝트 ID로 검색
-    const project = getProjectById(target);
+    // 2. 프로젝트 ID 직접 검색 (어느 경로에서든 접근 가능)
+    const project = getProjectById(target.toLowerCase());
     if (project) {
       return renderProject(project);
     }
@@ -89,7 +83,7 @@ registerCommand("cat", {
 
     // 4. 찾을 수 없음
     return [
-      out.error(`cat: '${target}': No such file or project`),
+      out.error(fsResult.error || `cat: '${target}': No such file or project`),
       out.comment(
         "  'ls' 로 파일 목록을, 'ls projects' 로 프로젝트 목록을 확인하세요.",
       ),
@@ -110,6 +104,52 @@ function renderProject(project) {
     out.info(`  🔗 GitHub: ${project.github}`),
     out.blank(),
     out.comment(`  'open ${project.id}' 로 GitHub 페이지를 열 수 있습니다.`),
+    out.blank(),
+  ];
+}
+
+function renderAbout() {
+  return [
+    out.blank(),
+    out.accent("📄 about.md"),
+    divider(),
+    out.blank(),
+    out.success("# Dev-2A — 전직 사서, 현직 AI/ML 엔지니어"),
+    out.blank(),
+    out.info(
+      "도서관에서 장서를 분류하고, 이용자에게 정보를 연결하던 사서였습니다.",
+    ),
+    out.info(
+      "지금은 AI와 임베딩 모델로 '정보와 사람을 연결하는 일'을 계속하고 있습니다.",
+    ),
+    out.blank(),
+    out.comment("  전체 내용은 'about' 명령어로 확인하세요."),
+    out.blank(),
+  ];
+}
+
+function renderContact() {
+  return [
+    out.blank(),
+    out.accent("📄 contact.md"),
+    divider(),
+    out.blank(),
+    out.success("# Contact"),
+    out.blank(),
+    out.info("  📧 GitHub:     https://github.com/Dev-2A"),
+    out.info("  🌐 Portfolio:  https://dev-2a.github.io/dev-2a-portfolio/"),
+    out.info("  📊 Solved.ac:  https://solved.ac/profile/tangi826"),
+    out.blank(),
+  ];
+}
+
+function renderSkillFile(title, content) {
+  return [
+    out.blank(),
+    out.accent(`📄 ${title}`),
+    divider(),
+    out.blank(),
+    out.info(`  ${content}`),
     out.blank(),
   ];
 }

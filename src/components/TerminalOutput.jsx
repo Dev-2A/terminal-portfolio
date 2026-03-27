@@ -19,7 +19,9 @@ function OutputLine({ entry }) {
       {style.prefix && (
         <span style={{ color: "var(--terminal-prompt)" }}>
           dev-2a@portfolio<span style={{ color: "var(--terminal-fg)" }}>:</span>
-          <span style={{ color: "var(--terminal-blue)" }}>~</span>
+          <span style={{ color: "var(--terminal-blue)" }}>
+            {entry.path || "~"}
+          </span>
           <span style={{ color: "var(--terminal-fg)" }}>$ </span>
         </span>
       )}

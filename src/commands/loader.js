@@ -5,3 +5,5 @@ import "./cmds/whoami";
 import "./cmds/about";
 import "./cmds/ls";
 import "./cmds/cat";
+import "./cmds/cd";
+import "./cmds/pwd";

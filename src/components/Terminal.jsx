@@ -3,6 +3,7 @@ import TerminalOutput from "./TerminalOutput";
 import TerminalInput from "./TerminalInput";
 import { executeCommand } from "../commands/registry";
 import "../commands/loader";
+import fs from "../data/filesystem";
 
 const WELCOME_MESSAGE = [
   {
@@ -45,7 +46,9 @@ export default function Terminal() {
     setHistoryIndex(-1);
 
     // 입력한 명령어를 출력 영역에 표시
-    const newEntries = [{ type: "command", content: trimmed }];
+    const newEntries = [
+      { type: "command", content: trimmed, path: fs.getPromptPath() },
+    ];
 
     if (trimmed === "") {
       // 빈 입력은 빈 줄만 추가
@@ -124,6 +127,7 @@ export default function Terminal() {
         <TerminalInput
           onSubmit={handleCommand}
           onHistoryNavigation={handleHistoryNavigation}
+          currentPath={fs.getPromptPath()}
         />
       </div>
     </div>

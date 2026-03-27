@@ -1,6 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 
-export default function TerminalInput({ onSubmit, onHistoryNavigation }) {
+export default function TerminalInput({
+  onSubmit,
+  onHistoryNavigation,
+  currentPath,
+}) {
   const [input, setInput] = useState("");
   const inputRef = useRef(null);
 
@@ -35,7 +39,9 @@ export default function TerminalInput({ onSubmit, onHistoryNavigation }) {
     <div className="flex items-center font-mono text-sm min-h-[2rem]">
       <span style={{ color: "var(--terminal-prompt)" }}>
         dev-2a@portfolio<span style={{ color: "var(--terminal-fg)" }}>:</span>
-        <span style={{ color: "var(--terminal-blue)" }}>~</span>
+        <span style={{ color: "var(--terminal-blue)" }}>
+          {currentPath || "~"}
+        </span>
         <span style={{ color: "var(--terminal-fg)" }}>$ </span>
       </span>
       <input
