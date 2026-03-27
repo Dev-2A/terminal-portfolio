@@ -10,3 +10,4 @@ import "./cmds/pwd";
 import "./cmds/open";
 import "./cmds/history";
 import "./cmds/theme";
+import "./cmds/banner";

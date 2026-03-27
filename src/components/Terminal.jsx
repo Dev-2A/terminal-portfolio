@@ -5,29 +5,10 @@ import { executeCommand } from "../commands/registry";
 import "../commands/loader";
 import fs from "../data/filesystem";
 import { setHistoryRef } from "../commands/cmds/history";
-
-const WELCOME_MESSAGE = [
-  {
-    type: "ascii",
-    content: `  ____             ____    _    
- |  _ \\  _____   _|___ \\  / \\   
- | | | |/ _ \\ \\ / / __) |/ _ \\  
- | |_| |  __/\\ V / / __// ___ \\ 
- |____/ \\___| \\_/ |_____/_/   \\_\\`,
-  },
-  { type: "info", content: "" },
-  { type: "info", content: "Terminal Portfolio v0.1.0" },
-  {
-    type: "info",
-    content: "전직 사서 → AI/ML 엔지니어, Dev-2A의 인터랙티브 포트폴리오",
-  },
-  { type: "info", content: "" },
-  { type: "success", content: "Type 'help' to see available commands." },
-  { type: "info", content: "" },
-];
+import { getWelcomeMessage } from "../data/welcome";
 
 export default function Terminal() {
-  const [history, setHistory] = useState(WELCOME_MESSAGE);
+  const [history, setHistory] = useState(() => getWelcomeMessage());
   const [commandHistory, setCommandHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const bottomRef = useRef(null);
