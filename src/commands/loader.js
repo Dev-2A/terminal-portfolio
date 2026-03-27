@@ -3,3 +3,5 @@ import "./cmds/help";
 import "./cmds/clear";
 import "./cmds/whoami";
 import "./cmds/about";
+import "./cmds/ls";
+import "./cmds/cat";
