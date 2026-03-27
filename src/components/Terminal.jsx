@@ -1,17 +1,20 @@
 import { useState, useRef, useEffect } from "react";
 import TerminalOutput from "./TerminalOutput";
 import TerminalInput from "./TerminalInput";
+import MobileHelper from "./MobileHelper";
 import { executeCommand } from "../commands/registry";
 import "../commands/loader";
 import fs from "../data/filesystem";
 import { setHistoryRef } from "../commands/cmds/history";
 import { getWelcomeMessage } from "../data/welcome";
+import useMobile from "../hooks/useMobile";
 
 export default function Terminal() {
   const [history, setHistory] = useState(() => getWelcomeMessage());
   const [commandHistory, setCommandHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const bottomRef = useRef(null);
+  const isMobile = useMobile();
 
   // 새 출력이 추가되면 자동 스크롤
   useEffect(() => {
@@ -31,7 +34,7 @@ export default function Terminal() {
     }
     setHistoryIndex(-1);
 
-    // 입력한 명령어를 출력 영역에 표시
+    // 입력한 명령어를 출력 영역에 표시 (현재 경로 포함)
     const newEntries = [
       { type: "command", content: trimmed, path: fs.getPromptPath() },
     ];
@@ -80,7 +83,7 @@ export default function Terminal() {
     >
       {/* 타이틀 바 */}
       <div
-        className="flex items-center px-4 py-2 gap-2"
+        className="flex items-center px-4 py-2 gap-2 shrink-0"
         style={{ backgroundColor: "var(--terminal-comment)", opacity: 0.6 }}
       >
         <div className="flex gap-1.5">
@@ -97,25 +100,36 @@ export default function Terminal() {
             style={{ backgroundColor: "var(--terminal-green)" }}
           />
         </div>
-        <span className="text-xs ml-2" style={{ color: "var(--terminal-fg)" }}>
-          dev-2a@portfolio:~
+        <span
+          className="text-xs ml-2 truncate"
+          style={{ color: "var(--terminal-fg)" }}
+        >
+          dev-2a@portfolio:{fs.getPromptPath()}
         </span>
       </div>
 
       {/* 출력 영역 (스크롤 가능) */}
-      <div className="flex-1 overflow-y-auto p-4 font-mono text-sm">
+      <div
+        className={`flex-1 overflow-y-auto font-mono ${
+          isMobile ? "p-2 text-xs" : "p-4 text-sm"
+        }`}
+      >
         <TerminalOutput history={history} />
         <div ref={bottomRef} />
       </div>
 
       {/* 입력 영역 */}
-      <div className="shrink-0 p-4 pt-0">
+      <div className={`shrink-0 ${isMobile ? "p-2 pt-0" : "p-4 pt-0"}`}>
         <TerminalInput
           onSubmit={handleCommand}
           onHistoryNavigation={handleHistoryNavigation}
           currentPath={fs.getPromptPath()}
+          isMobile={isMobile}
         />
       </div>
+
+      {/* 모바일 빠른 명령어 */}
+      {isMobile && <MobileHelper onCommand={handleCommand} />}
     </div>
   );
 }

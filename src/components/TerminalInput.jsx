@@ -4,6 +4,7 @@ export default function TerminalInput({
   onSubmit,
   onHistoryNavigation,
   currentPath,
+  isMobile,
 }) {
   const [input, setInput] = useState("");
   const inputRef = useRef(null);
@@ -36,7 +37,9 @@ export default function TerminalInput({
   };
 
   return (
-    <div className="flex items-center font-mono text-sm min-h-[2rem]">
+    <div
+      className={`flex items-center font-mono min-h-[2rem] ${isMobile ? "text-xs" : "text-sm"}`}
+    >
       <span style={{ color: "var(--terminal-prompt)" }}>
         dev-2a@portfolio<span style={{ color: "var(--terminal-fg)" }}>:</span>
         <span style={{ color: "var(--terminal-blue)" }}>
@@ -51,9 +54,13 @@ export default function TerminalInput({
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKeyDown}
         className="flex-1 bg-transparent outline-none caret-[var(--terminal-green)]"
-        style={{ color: "var(--terminal-fg)" }}
+        style={{
+          color: "var(--terminal-fg)",
+          fontSize: isMobile ? "12px" : "14px",
+        }}
         spellCheck={false}
         autoComplete="off"
+        autoCapitalize="off"
       />
     </div>
   );
