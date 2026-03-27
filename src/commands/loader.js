@@ -11,3 +11,5 @@ import "./cmds/open";
 import "./cmds/history";
 import "./cmds/theme";
 import "./cmds/banner";
+import "./cmds/easter";
+import "./cmds/search";
