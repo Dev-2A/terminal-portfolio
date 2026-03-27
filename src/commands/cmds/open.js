@@ -5,6 +5,7 @@ import { getProjectById, searchProjects } from "../../data/projects";
 const links = {
   github: "https://github.com/Dev-2A",
   portfolio: "https://dev-2a.github.io/dev-2a-portfolio",
+  terminal: 'https://dev-2a.github.io/terminal-portfolio/',
   solvedac: "https://solved.ac/profile/tangi826",
   solved: "https://solved.ac/profile/tangi826",
 };

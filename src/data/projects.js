@@ -173,7 +173,16 @@ const projects = [
     stack: ["React", "D3.js", "BGE-M3", "Aladin API"],
     description: "독서 지식 그래프 — 임베딩 기반 도서 관계 시각화",
     github: "https://github.com/Dev-2A/bookshelf-log",
-    status: "🔨 진행 중",
+    status: "✅ 완성",
+  },
+  {
+    id: 'terminal-portfolio',
+    name: 'Terminal Portfolio',
+    stack: ['React', 'Vite', 'Tailwind CSS', 'GitHub Pages'],
+    description: '터미널 스타일 인터랙티브 개발자 포트폴리오',
+    github: 'https://github.com/Dev-2A/terminal-portfolio',
+    demo: 'https://dev-2a.github.io/terminal-portfolio/',
+    status: '✅ 완성',
   },
 ];
 

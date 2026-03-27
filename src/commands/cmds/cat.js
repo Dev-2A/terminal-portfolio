@@ -131,15 +131,16 @@ function renderAbout() {
 function renderContact() {
   return [
     out.blank(),
-    out.accent("📄 contact.md"),
-    divider(),
-    out.blank(),
-    out.success("# Contact"),
-    out.blank(),
-    out.info("  📧 GitHub:     https://github.com/Dev-2A"),
-    out.info("  🌐 Portfolio:  https://dev-2a.github.io/dev-2a-portfolio/"),
-    out.info("  📊 Solved.ac:  https://solved.ac/profile/tangi826"),
-    out.blank(),
+      out.accent('📄 contact.md'),
+      divider(),
+      out.blank(),
+      out.success('# Contact'),
+      out.blank(),
+      out.info('  📧 GitHub:     https://github.com/Dev-2A'),
+      out.info('  🌐 Portfolio:  https://dev-2a.github.io/dev-2a-portfolio/'),
+      out.info('  💻 Terminal:   https://dev-2a.github.io/terminal-portfolio/'),
+      out.info('  📊 Solved.ac:  https://solved.ac/profile/tangi826'),
+      out.blank(),
   ];
 }
 
