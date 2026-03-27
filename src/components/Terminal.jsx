@@ -49,11 +49,15 @@ export default function Terminal() {
 
     if (trimmed === "") {
       // 빈 입력은 빈 줄만 추가
-    } else if (trimmed === "clear") {
-      setHistory([]);
-      return;
     } else {
       const result = executeCommand(trimmed);
+
+      // clear 명령어 특수 처리
+      if (result.some((r) => r.type === "__clear__")) {
+        setHistory([]);
+        return;
+      }
+
       newEntries.push(...result);
     }
 
