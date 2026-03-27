@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import TerminalOutput from "./TerminalOutput";
 import TerminalInput from "./TerminalInput";
+import { executeCommand } from "../commands/registry";
+import "../commands/loader";
 
 const WELCOME_MESSAGE = [
   {
@@ -45,17 +47,14 @@ export default function Terminal() {
     // 입력한 명령어를 출력 영역에 표시
     const newEntries = [{ type: "command", content: trimmed }];
 
-    // TODO: Step 4에서 커맨드 파서 연결 예정
     if (trimmed === "") {
       // 빈 입력은 빈 줄만 추가
     } else if (trimmed === "clear") {
       setHistory([]);
       return;
     } else {
-      newEntries.push({
-        type: "error",
-        content: `command not found: ${trimmed}`,
-      });
+      const result = executeCommand(trimmed);
+      newEntries.push(...result);
     }
 
     setHistory((prev) => [...prev, ...newEntries]);
