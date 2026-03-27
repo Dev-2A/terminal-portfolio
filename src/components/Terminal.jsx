@@ -4,6 +4,7 @@ import TerminalInput from "./TerminalInput";
 import { executeCommand } from "../commands/registry";
 import "../commands/loader";
 import fs from "../data/filesystem";
+import { setHistoryRef } from "../commands/cmds/history";
 
 const WELCOME_MESSAGE = [
   {
@@ -41,7 +42,11 @@ export default function Terminal() {
 
     // 명령어 히스토리에 추가
     if (trimmed) {
-      setCommandHistory((prev) => [...prev, trimmed]);
+      setCommandHistory((prev) => {
+        const updated = [...prev, trimmed];
+        setHistoryRef(updated);
+        return updated;
+      });
     }
     setHistoryIndex(-1);
 

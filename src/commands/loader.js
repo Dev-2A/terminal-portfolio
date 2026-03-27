@@ -7,3 +7,6 @@ import "./cmds/ls";
 import "./cmds/cat";
 import "./cmds/cd";
 import "./cmds/pwd";
+import "./cmds/open";
+import "./cmds/history";
+import "./cmds/theme";
