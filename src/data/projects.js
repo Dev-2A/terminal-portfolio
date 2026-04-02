@@ -188,8 +188,7 @@ const projects = [
     id: "og-image-generator",
     name: "OG Image Generator",
     stack: ["React", "Vite", "Satori", "Tailwind CSS"],
-    description:
-      "SNS 공유용 OG 카드 이미지 생성기. 터미널 포트폴리오의 8가지 테마 재활용, Satori로 서버리스 이미지 생성.",
+    description: "SNS 공유용 OG 카드 이미지 생성기. 터미널 포트폴리오의 8가지 테마 재활용, Satori로 서버리스 이미지 생성.",
     github: "https://github.com/Dev-2A/og-image-generator",
     status: "✅ 완성",
   },
@@ -197,8 +196,7 @@ const projects = [
     id: "github-repo-card-generator",
     name: "GitHub Repo Card Generator",
     stack: ["React", "Vite", "Tailwind CSS"],
-    description:
-      "GitHub 레포 URL 입력 → 스타/포크/언어/설명을 포함한 카드 이미지(SVG/PNG) 생성 도구.",
+    description: "GitHub 레포 URL 입력 → 스타/포크/언어/설명을 포함한 카드 이미지(SVG/PNG) 생성 도구.",
     github: "https://github.com/Dev-2A/github-repo-card-generator",
     status: "✅ 완성",
   },
@@ -206,8 +204,7 @@ const projects = [
     id: "ffxiv-loot-tracker",
     name: "FFXIV 전리품 분배 도우미",
     stack: ["React", "Vite", "Tailwind CSS", "Supabase"],
-    description:
-      "레이드 전리품 실시간 입찰/분배 도구. DKP·로또·우선권 자동 분배, Supabase Realtime 멀티유저 동기화. URL 공유로 참여.",
+    description: "레이드 전리품 실시간 입찰/분배 도구. DKP·로또·우선권 자동 분배, Supabase Realtime 멀티유저 동기화. URL 공유로 참여.",
     github: "https://github.com/Dev-2A/ffxiv-loot-tracker",
     demo: "https://ffxiv-loot-tracker.vercel.app",
     status: "✅ 완성",
